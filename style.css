@@ -248,8 +248,8 @@ button:hover {
 
 .delete-btn:hover,
 .edit-btn:hover {
-    background-color: #f5f5f5;
-    border-radius: 4px;
+    background-color: #eaeaea;
+    border-radius: 50%;
 }
 
 .no-users {
@@ -333,7 +333,7 @@ button:hover {
 }
 
 .password-toggle-btn:hover {
-    background-color: rgba(0, 0, 0, 0.03);
+    background-color: #eaeaea;
     border-radius: 50%;
 }
 
