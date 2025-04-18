@@ -364,59 +364,24 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-// Função para adicionar botão de toggle de senha
-function addPasswordToggle(passwordInputId) {
-    const passwordInput = document.getElementById(passwordInputId);
-    if (!passwordInput) return;
+// Função para mostrar ou ocultar a senha e atualizar os ícones de visibilidade
+function togglePasswordVisibility(button) {
+    // Encontra o input anterior ao botão (irmão na DOM)
+    const input = button.parentElement.querySelector('input');
 
-    // Verificar se o botão já existe para evitar duplicação
-    const parentElement = passwordInput.parentElement;
-    if (parentElement.querySelector('.password-toggle-btn')) return;
+    // Alterna o tipo de input
+    const isPassword = input.type === 'password';
+    input.type = isPassword ? 'text' : 'password';
 
-    // Criar o botão de toggle
-    const toggleButton = document.createElement('button');
-    toggleButton.type = 'button';
-    toggleButton.className = 'password-toggle-btn';
-    toggleButton.innerHTML = `
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="eye-icon">
-            <path d="M12 5C5.63636 5 2 12 2 12C2 12 5.63636 19 12 19C18.3636 19 22 12 22 12C22 12 18.3636 5 12 5Z" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="eye-slash-icon" style="display: none;">
-            <path d="M2 12C2 12 5.63636 5 12 5C18.3636 5 22 12 22 12C22 12 18.3636 19 12 19C5.63636 19 2 12 2 12Z" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M3 21L21 3" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-    `;
+    // Alterna os ícones dentro do botão
+    const eyeIcon = button.querySelector('.eye-icon');
+    const eyeSlashIcon = button.querySelector('.eye-slash-icon');
 
-    // Adicionar o botão ao container do input
-    parentElement.style.position = 'relative';
-    parentElement.appendChild(toggleButton);
-
-    // Adicionar evento de clique
-    toggleButton.addEventListener('click', function () {
-        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-        passwordInput.setAttribute('type', type);
-
-        // Alternar entre os ícones
-        const eyeIcon = this.querySelector('.eye-icon');
-        const eyeSlashIcon = this.querySelector('.eye-slash-icon');
-
-        if (type === 'text') {
-            eyeIcon.style.display = 'none';
-            eyeSlashIcon.style.display = 'block';
-        } else {
-            eyeIcon.style.display = 'block';
-            eyeSlashIcon.style.display = 'none';
-        }
-    });
+    if (isPassword) {
+        eyeIcon.style.display = 'none';
+        eyeSlashIcon.style.display = 'block';
+    } else {
+        eyeIcon.style.display = 'block';
+        eyeSlashIcon.style.display = 'none';
+    }
 }
-
-// Adicionar os botões de toggle quando o DOM estiver carregado
-document.addEventListener('DOMContentLoaded', function () {
-    // Adicionar aos campos de senha existentes
-    addPasswordToggle('registerPassword');
-    addPasswordToggle('loginPassword');
-    addPasswordToggle('newPassword');
-    addPasswordToggle('confirmPassword');
-});
